@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html class="" lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>XSCADE · cosmic service flow</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+    rel="stylesheet" />
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "var(--color-primary)",
+            "secondary": "var(--color-secondary)",
+            "background-dark": "var(--color-background-dark)",
+            slate: {
+              50: "var(--color-slate-50)",
+              100: "var(--color-slate-100)",
+              200: "var(--color-slate-200)",
+              300: "var(--color-slate-300)",
+              400: "var(--color-slate-400)",
+              500: "var(--color-slate-500)",
+              600: "var(--color-slate-600)",
+              700: "var(--color-slate-700)",
+              800: "var(--color-slate-800)",
+              900: "var(--color-slate-900)",
+            },
+            white: "var(--color-white)",
+            black: "var(--color-black)"
+          },
+          fontFamily: {
+            "display": ["Outfit", "sans-serif"]
+          },
+        },
+      },
+    }
+  </script>
+  <style type="text/tailwindcss">
+
+    :root {
+        --color-primary: #a178a2;
+        --color-secondary: #0284c7;
+        --color-background-dark: #fbfcfd;
+        --color-slate-50: #0f172a;
+        --color-slate-100: #1e293b;
+        --color-slate-200: #334155;
+        --color-slate-300: #475569;
+        --color-slate-400: #64748b;
+        --color-slate-500: #94a3b8;
+        --color-slate-600: #cbd5e1;
+        --color-slate-700: #e2e8f0;
+        --color-slate-800: #e2e8f0;
+        --color-slate-900: #f1f5f9;
+        --color-white: #0f172a;
+        --color-black: #f8fafc;
+
+        --cosmic-lavender: rgba(155, 106, 156, 0.08);
+        --cosmic-sky: rgba(2, 132, 199, 0.08);
+        --bg-grad-color1: rgba(155, 106, 156, 0.05);
+        --bg-grad-color2: rgba(2, 132, 199, 0.05);
+
+        --node-bg: rgba(255, 255, 255, 0.8);
+        --node-border: rgba(0, 0, 0, 0.05);
+        --node-shadow-color: rgba(0, 0, 0, 0.05);
+
+        --hero-lattice-1: rgba(155, 106, 156, 0.05);
+        --hero-lattice-2: rgba(2, 132, 199, 0.05);
+
+        --iphone-bg-border: #e2e8f0;
+        --iphone-inner-bg: #f8fafc;
+        --iphone-island-bg: #fff;
+        --iphone-island-border: rgba(0,0,0,0.1);
+
+        --company-card-bg: rgba(255, 255, 255, 0.8);
+        --company-card-border: rgba(0, 0, 0, 0.08);
+        --company-name-color: #0284c7;
+
+        --welcome-bg: rgba(255, 255, 255, 0.9);
+        --text-color: #0f172a;
+
+        --image-avatar: url('light_avatar_profile_1773821766165.png');
+        --image-network: url('light_tech_network_1773821833848.png');
+        --image-gold-network: url('light_tech_network_1773821833848.png');
+    }
+
+    html.dark:root, .dark {
+        --color-primary: #E0BBE4;
+        --color-secondary: #BAE6FD;
+        --color-background-dark: #050406;
+        --color-slate-50: #f8fafc;
+        --color-slate-100: #f1f5f9;
+        --color-slate-200: #e2e8f0;
+        --color-slate-300: #cbd5e1;
+        --color-slate-400: #94a3b8;
+        --color-slate-500: #64748b;
+        --color-slate-600: #475569;
+        --color-slate-700: #334155;
+        --color-slate-800: #1e293b;
+        --color-slate-900: #0f172a;
+        --color-white: #ffffff;
+        --color-black: #000000;
+
+        --cosmic-lavender: rgba(224, 187, 228, 0.08);
+        --cosmic-sky: rgba(186, 230, 253, 0.08);
+        --bg-grad-color1: rgba(224, 187, 228, 0.05);
+        --bg-grad-color2: rgba(186, 230, 253, 0.05);
+
+        --node-bg: rgba(255, 255, 255, 0.015);
+        --node-border: rgba(255, 255, 255, 0.05);
+        --node-shadow-color: rgba(0, 0, 0, 0.3);
+
+        --hero-lattice-1: rgba(224,187,228,0.02);
+        --hero-lattice-2: rgba(186,230,253,0.02);
+
+        --iphone-bg-border: rgba(255,255,255,0.05);
+        --iphone-inner-bg: #050406;
+        --iphone-island-bg: #000;
+        --iphone-island-border: rgba(255,255,255,0.05);
+
+        --company-card-bg: rgba(255, 255, 255, 0.03);
+        --company-card-border: rgba(255, 255, 255, 0.08);
+        --company-name-color: #bae6fd;
+
+        --welcome-bg: rgba(5, 4, 6, 0.8);
+        --text-color: #cbd5e1;
+
+        --image-avatar: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCcA2fiWLJsmJQJPwBIgpxlEfrNmdwkLtKge7R4u5xGKOlVn6bS92BiO8RL3GA_HN2jHjDvWjEKapB6--sg1vUZIc_VuUSycaqMK6l2C9fW47C77yZnttna_sb2JQInFrQNghbkdl6u3anDSJ1em42kBcWNOEmmaA1gNuS2VrYMCq2E9wcNZHTTbHSrpmKdFJsWVAcWksnXCNjdvPQVg33eAd4OHJhQZbu4KMBF3Obf6IXvmft7gmEZ3JWe_rz-qDCIKzFk8jQl4YOY');
+        --image-network: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDlD_XARKRWuVsSumWEyKVehbUlGNtXXzSUzu9BVHuHrWbGb08WLZ25ARgdSuxWS1Ov86aNzoE6HkYJSBsbCyeQ4amWYCoZfSspyLoYV6mircQytZl_fWNtsj7LbysL14gYhs-sclwEWMMd4MSceshGVLs14-hPUymgn1643f06ybzuX6Y0-8tQyvvcaxpGHSqUaZR2BnuC3axmRJLiuHC_XHP2EHt8RKvtV15WszGtAdZJGUlmRZrnwQuyi5aRLME4FZ3cZZU040PA');
+        --image-gold-network: url('file:///C:/Users/manoj/.gemini/antigravity/brain/b1c1872c-b3fe-4a3a-bd30-3b2c7d6604e7/gold_tech_network_1773139175631.png');
+    }
+
+    :root {
+        --cosmic-lavender: rgba(224, 187, 228, 0.08);
+        --cosmic-sky: rgba(186, 230, 253, 0.08);
+    }
+    body {
+        background-color: var(--color-background-dark);
+        background-image: 
+            radial-gradient(circle at 20% 30%, var(--bg-grad-color1) 0%, transparent 50%),
+            radial-gradient(circle at 80% 70%, var(--bg-grad-color2) 0%, transparent 50%);
+    }
+    .cosmic-node {
+        background: var(--node-bg);
+        backdrop-filter: blur(25px) saturate(120%);
+        -webkit-backdrop-filter: blur(25px) saturate(120%);
+        border: 1px solid var(--node-border);
+        box-shadow: 0 8px 32px 0 var(--node-shadow-color);
+    }
+    .data-path {
+        position: absolute;
+        background: linear-gradient(to bottom, transparent, var(--data-path-color-1), transparent);
+        width: 1px;
+        z-index: 0;
+    }
+    .data-path-horizontal {
+        position: absolute;
+        background: linear-gradient(to right, transparent, var(--data-path-color-2), transparent);
+        height: 1px;
+        z-index: 0;
+    }
+    .ethereal-glow-diffused {
+        filter: blur(120px);
+        opacity: 0.12;
+        pointer-events: none;
+    }
+    .overlap-node-up {
+        margin-top: -40px;
+        z-index: 20;
+    }
+    .overlap-node-down {
+        margin-bottom: -40px;
+        z-index: 20;
+    }
+    .gradient-text-soft {
+        background: linear-gradient(135deg, #E0BBE4 20%, #BAE6FD 80%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    .interactive-glow:hover {
+        border-color: var(--hover-border);
+        background: var(--company-card-bg);
+        box-shadow: 0 0 30px var(--bg-grad-color1);
+    }
+    .hero-lattice {
+        background-image: 
+            linear-gradient(var(--hero-lattice-1) 1px, transparent 1px),
+            linear-gradient(90deg, var(--hero-lattice-2) 1px, transparent 1px);
+        background-size: 40px 40px;
+    }
+    .pulse-dot {
+        animation: pulse-glow 3s infinite;
+    }
+    @keyframes pulse-glow {
+        0%, 100% { opacity: 0.4; box-shadow: 0 0 8px var(--pulse-color-1); }
+        50% { opacity: 1; box-shadow: 0 0 20px var(--pulse-color-2); }
+    }
+    .service-beam {
+        background: linear-gradient(90deg, transparent, var(--beam-color-1), var(--beam-color-2), transparent);
+    }
+    .float-orb-1 {
+        position: absolute;
+        width: 180px;
+        height: 180px;
+        border-radius: 50%;
+        background: rgba(224, 187, 228, 0.03);
+        filter: blur(50px);
+        animation: float 16s infinite alternate ease-in-out;
+    }
+    .float-orb-2 {
+        position: absolute;
+        width: 220px;
+        height: 220px;
+        border-radius: 50%;
+        background: rgba(186, 230, 253, 0.03);
+        filter: blur(60px);
+        animation: float 20s infinite alternate-reverse ease-in-out;
+    }
+    @keyframes float {
+        0% { transform: translate(0, 0) scale(1); opacity: 0.3; }
+        100% { transform: translate(40px, -30px) scale(1.2); opacity: 0.6; }
+    }
+    .data-stream {
+        position: absolute;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, var(--stream-color-1), var(--stream-color-2), transparent);
+        background-size: 200% 100%;
+        animation: streamFlow 4s infinite linear;
+    }
+    @keyframes streamFlow {
+        0% { background-position: 0% 0; }
+        100% { background-position: 200% 0; }
+    }
+    .glow-extra {
+        box-shadow: 0 0 60px var(--data-path-color-1);
+    }
+
+    /* iPhone 15 Pro Premium Frame - Compact version for Hero */
+    .iphone-frame {
+        height: 500px; /* Match hero container height */
+        width: 246px;  /* Proportional width */
+        background: var(--iphone-bg-border);
+        border-radius: 40px;
+        position: absolute;
+        padding: 10px;
+        box-shadow: 
+            0 0 0 2px #333,
+            0 0 0 4px #1a1a1a,
+            0 20px 40px rgba(0,0,0,0.8),
+            0 0 30px var(--data-path-color-1);
+        border: 1px solid var(--iphone-island-border);
+        opacity: 0;
+        transform: scale(0.95);
+        transition: all 1s cubic-bezier(0.22, 1, 0.36, 1);
+        z-index: 50;
+        pointer-events: none;
+    }
+    .iphone-frame.active {
+        opacity: 1;
+        transform: scale(1);
+        pointer-events: auto;
+    }
+    .iphone-inner {
+        width: 100%;
+        height: 100%;
+        background: var(--iphone-inner-bg);
+        border-radius: 36px;
+        overflow: hidden;
+        position: relative;
+        border: 1px solid rgba(255,255,255,0.02);
+    }
+    .iphone-dynamic-island {
+        width: 85px;
+        height: 26px;
+        background: var(--iphone-island-bg);
+        border-radius: 20px;
+        position: absolute;
+        top: 12px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 100;
+        border: 0.5px solid var(--iphone-island-border);
+    }
+    .iphone-reflection {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, transparent 40%, rgba(255,255,255,0.02) 100%);
+        pointer-events: none;
+        z-index: 80;
+    }
+    .iphone-controls {
+        position: absolute;
+        bottom: 30px;
+        left: 0;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        z-index: 100;
+    }
+    .control-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.2);
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .control-dot.active {
+        background: #E0BBE4;
+        width: 24px;
+        border-radius: 10px;
+    }
+    
+    /* Companies Scrollbar Styles */
+    .companies-section {
+        position: relative;
+        overflow: hidden;
+        padding: 2rem 0;
+        background: linear-gradient(180deg, transparent 0%, rgba(224,187,228,0.02) 50%, transparent 100%);
+    }
+    
+    .companies-header {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+    
+    .companies-container {
+        position: relative;
+        overflow: hidden;
+        mask-image: linear-gradient(90deg, transparent 0%, black 10%, black 90%, transparent 100%);
+        -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 10%, black 90%, transparent 100%);
+    }
+    
+    .companies-track {
+        display: flex;
+        gap: 1.5rem;
+        animation: scrollCompanies 25s linear infinite;
+        width: fit-content;
+    }
+    
+    @keyframes scrollCompanies {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(calc(-50% - 0.75rem)); }
+    }
+    
+    .company-card {
+        flex-shrink: 0;
+        width: 150px;
+        height: 90px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem;
+        border-radius: 1rem;
+        background: var(--company-card-bg);
+        border: 1px solid var(--company-card-border);
+        backdrop-filter: blur(10px);
+        text-align: center;
+    }
+    
+    .company-card .company-logo {
+        width: 45px;
+        height: 45px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 0.3rem;
+        font-size: 1.5rem;
+    }
+    
+    .company-card .company-name {
+        font-size: 0.75rem;
+        font-weight: 300;
+        color: var(--company-name-color);
+        letter-spacing: 0.05em;
+    }
+
+    /* Mouse interaction effects */
+    .interaction-glow {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(224,187,228,0.2) 0%, transparent 50%);
+        pointer-events: none;
+        transition: background 0.1s;
+        z-index: 30;
+    }
+
+    /* Welcome message animation */
+    .welcome-message {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background: var(--welcome-bg);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(224, 187, 228, 0.3);
+        border-radius: 50px;
+        padding: 10px 20px;
+        color: white;
+        font-size: 14px;
+        font-weight: 300;
+        letter-spacing: 0.5px;
+        opacity: 0;
+        transform: translateY(-20px);
+        animation: slideInMessage 0.5s ease forwards 2.5s;
+        box-shadow: 0 0 30px rgba(186, 230, 253, 0.2);
+        z-index: 40;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .welcome-message span {
+        color: #BAE6FD;
+        font-size: 18px;
+        animation: wave 1s infinite;
+        display: inline-block;
+    }
+
+    @keyframes wave {
+        0%, 100% { transform: rotate(0deg); }
+        25% { transform: rotate(15deg); }
+        75% { transform: rotate(-15deg); }
+    }
+
+    @keyframes slideInMessage {
+        0% { opacity: 0; transform: translateY(-20px); }
+        100% { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Model Cross-fade Styles */
+    .hero-model-container model-viewer {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        transition: opacity 0.8s ease-in-out;
+    }
+    .model-hidden {
+        opacity: 0;
+        pointer-events: none;
+    }
+    .model-visible {
+        opacity: 1;
+        pointer-events: auto;
+    }
+</style>
+  <!-- Google Model Viewer Script -->
+  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
+</head>
+
+<body
+  class="font-display text-slate-300 selection:bg-primary/20 antialiased overflow-x-hidden font-light bg-background-dark">
+  <div class="relative min-h-screen w-full flex flex-col">
+    <!-- fixed background -->
+    <div class="fixed top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
+      <div class="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] bg-primary ethereal-glow-diffused rounded-full"></div>
+      <div class="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] bg-secondary ethereal-glow-diffused rounded-full">
+      </div>
+      <div class="float-orb-1 top-[20%] right-[15%]"></div>
+      <div class="float-orb-2 bottom-[10%] left-[10%]"></div>
+      <div class="data-path left-1/4 h-full"></div>
+      <div class="data-path left-3/4 h-full"></div>
+      <div class="data-path-horizontal top-1/3 w-full"></div>
+      <div class="data-path-horizontal top-2/3 w-full"></div>
+    </div>
+
+    <!-- header -->
+    <header class="relative z-50 px-6 md:px-20 py-8">
+      <div class="flex items-center justify-between">
+        <a href="index.html" class="flex items-center gap-4 group cursor-pointer">
+          <div class="size-6 text-primary/60 group-hover:text-primary/80 transition-all">
+            <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M24 45.8096C19.6865 45.8096 15.4698 44.5305 11.8832 42.134C8.29667 39.7376 5.50128 36.3314 3.85056 32.3462C2.19985 28.361 1.76794 23.9758 2.60947 19.7452C3.451 15.5145 5.52816 11.6284 8.57829 8.5783C11.6284 5.52817 15.5145 3.45101 19.7452 2.60948C23.9758 1.76795 28.361 2.19986 32.3462 3.85057C36.3314 5.50129 39.7376 8.29668 42.134 11.8833C44.5305 15.4698 45.8096 19.6865 45.8096 24L24 24L24 45.8096Z"
+                fill="currentColor"></path>
+            </svg>
+          </div>
+          <h1 class="text-slate-100 text-lg font-extralight tracking-[0.3em]">XSCADE</h1>
+        </a>
+        <nav class="hidden lg:flex items-center gap-12">
+          <a class="text-slate-500 hover:text-primary transition-colors text-[10px] font-light tracking-[0.4em] uppercase"
+            href="services.html">Services</a>
+          <a class="text-slate-500 hover:text-primary transition-colors text-[10px] font-light tracking-[0.4em] uppercase"
+            href="aboutus.html">About Us</a>
+          <a class="text-slate-500 hover:text-primary transition-colors text-[10px] font-light tracking-[0.4em] uppercase"
+            href="contact.html">Contact</a>
+          <a class="text-slate-500 hover:text-primary transition-colors text-[10px] font-light tracking-[0.4em] uppercase"
+            href="blogs.html">Blogs</a>
+        </nav>
+        <div class="flex items-center gap-6">
+
+          <button id="theme-toggle"
+            class="text-slate-300 hover:text-white transition-all mr-2 flex items-center justify-center size-8 rounded-full border border-white/10 hover:bg-slate-800">
+            <span id="theme-icon" class="material-symbols-outlined text-lg">dark_mode</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="relative z-10 flex-1 flex flex-col items-center px-6 md:px-20 py-20 max-w-7xl mx-auto w-full">
+
+      <!-- HERO SECTION with 3D Model -->
+      <section class="w-full mb-32 relative">
+        <div class="absolute inset-0 hero-lattice pointer-events-none"></div>
+        <div class="absolute top-[30%] left-0 w-full data-stream opacity-30"></div>
+        <div class="absolute top-20 left-10 w-64 h-64 rounded-full bg-primary/5 blur-[80px]"></div>
+        <div class="absolute bottom-10 right-10 w-80 h-80 rounded-full bg-secondary/5 blur-[100px]"></div>
+
+        <div class="relative z-10 flex flex-col lg:flex-row items-center gap-10 lg:gap-6">
+
+          <!-- left: headline -->
+          <div class="flex-1 space-y-8 text-center lg:text-left">
+            <span
+              class="inline-block text-primary/40 text-[10px] font-light uppercase tracking-[0.8em] border-l border-primary/20 pl-3">·comprehensive
+              solutions·</span>
+            <h2 class="text-slate-50 text-5xl md:text-7xl font-extralight leading-[1.1] tracking-tighter max-w-2xl">
+              <span class="gradient-text-soft block">transform your</span>
+              <span class="relative inline-block mt-2 overflow-hidden align-bottom py-1">
+                <span id="digital-presence-text"
+                  class="inline-block transform translate-x-[-105%] transition-transform duration-[600ms] cubic-bezier(0.22, 1, 0.36, 1)">digital
+                  presence</span>
+                <span class="absolute -bottom-1 left-0 w-full h-[1px] service-beam"></span>
+              </span>
+            </h2>
+            <p
+              class="text-slate-400 text-lg md:text-xl font-extralight leading-relaxed max-w-xl mx-auto lg:mx-0 tracking-wide">
+              From AI automation & web development to security & digital marketing.
+              <span class="text-primary/30">we deliver excellence across all digital services.</span>
+            </p>
+            <div class="flex flex-wrap justify-center lg:justify-start gap-6 pt-6">
+              <button
+                class="px-10 py-4 rounded-full border border-primary/30 bg-primary/10 text-slate-100 text-[10px] font-extralight tracking-[0.5em] uppercase hover:bg-primary/20 transition-all flex items-center gap-2 shadow-lg shadow-primary/5">
+                <span>portfolio</span> <span
+                  class="material-symbols-outlined text-sm text-primary/60">folder_special</span>
+              </button>
+              <button
+                class="px-10 py-4 rounded-full border border-white/10 bg-white/5 text-slate-400 text-[10px] font-extralight tracking-[0.5em] uppercase hover:bg-white/10 transition-all flex items-center gap-2 shadow-lg">
+                <span>view network</span> <span
+                  class="material-symbols-outlined text-sm text-secondary/40">language</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- right: 3D MODEL SECTION -->
+          <div id="hero-model-section" class="flex-1 relative hidden lg:flex justify-center items-center min-h-[500px]">
+
+            <!-- Background Glows -->
+            <div class="absolute w-64 h-64 rounded-full bg-primary/10 blur-3xl animate-pulse"></div>
+            <div class="absolute w-80 h-80 rounded-full bg-secondary/5 blur-3xl"></div>
+
+            <div
+              class="relative w-full max-w-[550px] h-[500px] flex justify-center items-center hero-model-container overflow-visible">
+
+              <!-- 1. SEQUENTIAL MODELS -->
+              <model-viewer id="hero-model-wave" src="Waving.glb" alt="Waving character" camera-orbit="0deg 75deg 105%"
+                loading="eager" reveal="auto" shadow-intensity="1" environment-image="neutral" exposure="1.2"
+                shadow-softness="0.5"
+                class="absolute inset-0 w-full h-full object-contain z-20 transition-opacity duration-1000 opacity-0">
+              </model-viewer>
+
+              <model-viewer id="hero-model-pull" src="Pulling A Rope.glb" alt="Pulling character"
+                camera-orbit="0deg 75deg 105%" loading="eager" reveal="auto" shadow-intensity="1"
+                environment-image="neutral" exposure="1.2" shadow-softness="0.5"
+                class="absolute inset-0 w-full h-full object-contain z-10 transition-opacity duration-1000 opacity-0">
+              </model-viewer>
+
+              <!-- 2. INTERNAL IPHONE INTERACTIVE FRAME (Hidden initially) -->
+              <div id="iphone-view" class="iphone-frame" style="display: none;">
+                <div class="iphone-dynamic-island"></div>
+                <div class="iphone-reflection"></div>
+                <div class="iphone-inner">
+                  <model-viewer id="interactive-model" src="Waving.glb" alt="Interactive 3D model" camera-controls
+                    interaction-prompt="auto" shadow-intensity="1" environment-image="neutral" exposure="1.2"
+                    camera-orbit="0deg 75deg 70%" class="w-full h-full">
+                  </model-viewer>
+
+                  <!-- Model Switcher Dots -->
+                  <div class="iphone-controls">
+                    <div class="control-dot active" data-model="Waving.glb"></div>
+                    <div class="control-dot" data-model="Idle.glb"></div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <script>
+          document.addEventListener('DOMContentLoaded', () => {
+            const modelWave = document.getElementById('hero-model-wave');
+            const modelPull = document.getElementById('hero-model-pull');
+            const iphoneView = document.getElementById('iphone-view');
+            const digitalText = document.getElementById('digital-presence-text');
+            const interactiveModel = document.getElementById('interactive-model');
+            const controlDots = document.querySelectorAll('.control-dot');
+
+            let sequenceStarted = false;
+
+            // Session Persistence
+            const hasPlayed = sessionStorage.getItem('hero_animation_played');
+
+            if (hasPlayed) {
+              console.log('⏭️ Skipping intro (session persistent)');
+              if (modelWave) modelWave.style.display = 'none';
+              if (modelPull) modelPull.style.display = 'none';
+              if (iphoneView) {
+                iphoneView.style.display = 'block';
+                setTimeout(() => iphoneView.classList.add('active'), 50);
+              }
+              if (digitalText) {
+                digitalText.style.transition = 'none';
+                digitalText.style.transform = 'translateX(0)';
+              }
+            }
+
+            const playOnce = (viewer, keywords, customDuration = null) => {
+              return new Promise((resolve) => {
+                const checkReady = () => {
+                  if (viewer.availableAnimations && viewer.availableAnimations.length > 0) {
+                    const animations = viewer.availableAnimations;
+                    let anim = animations.find(name => keywords.some(kw => name.toLowerCase().includes(kw)));
+                    if (!anim) anim = animations[0];
+
+                    viewer.animationName = anim;
+                    viewer.play();
+
+                    setTimeout(() => {
+                      viewer.classList.replace('opacity-0', 'opacity-100');
+                    }, 100);
+
+                    const checkDuration = () => {
+                      const duration = customDuration || viewer.duration;
+                      if (duration > 0) {
+                        setTimeout(() => {
+                          viewer.pause();
+                          resolve();
+                        }, duration * 1000 - 50);
+                      } else {
+                        setTimeout(checkDuration, 100);
+                      }
+                    };
+                    checkDuration();
+                  } else {
+                    setTimeout(checkReady, 100);
+                  }
+                };
+                checkReady();
+              });
+            };
+
+            const runSequence = async () => {
+              if (hasPlayed || sequenceStarted) return;
+              sequenceStarted = true;
+
+              console.log('🏁 Starting sequence...');
+
+              // 1. Play Wave
+              await playOnce(modelWave, ['wave', 'greet'], 4.2);
+
+              // 2. Cross-fade to Pull
+              if (modelPull.availableAnimations && modelPull.availableAnimations.length > 0) {
+                modelPull.animationName = modelPull.availableAnimations[0];
+                modelPull.play();
+              }
+
+              modelWave.classList.replace('opacity-100', 'opacity-0');
+              modelPull.classList.replace('opacity-0', 'opacity-100');
+              modelWave.classList.replace('z-20', 'z-10');
+              modelPull.classList.replace('z-10', 'z-20');
+
+              // Staggered Pull Reveal
+              setTimeout(() => {
+                if (digitalText) digitalText.style.transform = 'translateX(-50%)';
+                setTimeout(() => {
+                  if (digitalText) digitalText.style.transform = 'translateX(0)';
+                }, 2750);
+              }, 2000);
+
+              // 3. Play Pulling (Wait for duration)
+              const pullDuration = await new Promise(res => {
+                const check = () => {
+                  if (modelPull.duration > 0) res(modelPull.duration);
+                  else setTimeout(check, 100);
+                };
+                check();
+              });
+
+              // End sequence and fade in iPhone
+              setTimeout(() => {
+                console.log('✨ Sequence complete. Activating iPhone View...');
+
+                // Hide sequential models
+                modelWave.style.opacity = '0';
+                modelPull.style.opacity = '0';
+
+                setTimeout(() => {
+                  modelWave.style.display = 'none';
+                  modelPull.style.display = 'none';
+
+                  // Activate iPhone View
+                  if (iphoneView) {
+                    iphoneView.style.display = 'block';
+                    setTimeout(() => iphoneView.classList.add('active'), 50);
+                  }
+                  sessionStorage.setItem('hero_animation_played', 'true');
+                }, 1000);
+              }, (pullDuration - 1) * 1000);
+            };
+
+            // Ensure interactive model starts animation immediately on load (avoids T-pose)
+            interactiveModel.addEventListener('load', () => {
+              const animations = interactiveModel.availableAnimations;
+              if (animations && animations.length > 0) {
+                // Find an idle or waving animation for the "standing straight" look
+                let anim = animations.find(name =>
+                  ['idle', 'stand', 'wave', 'greet'].some(kw => name.toLowerCase().includes(kw))
+                ) || animations[0];
+
+                interactiveModel.animationName = anim;
+                // interactiveModel.play(); // Removed animate to keep it static "standing straight"
+                interactiveModel.currentTime = 0;
+                console.log('📱 Interactive model set to static pose:', anim);
+              }
+            });
+
+            // Model Switcher Dots
+            controlDots.forEach(dot => {
+              dot.addEventListener('click', () => {
+                const modelSrc = dot.getAttribute('data-model');
+                if (interactiveModel.src !== modelSrc) {
+                  interactiveModel.setAttribute('src', modelSrc);
+                  controlDots.forEach(d => d.classList.remove('active'));
+                  dot.classList.add('active');
+                }
+              });
+            });
+
+            if (modelWave && !hasPlayed) {
+              modelWave.addEventListener('load', runSequence);
+              if (modelWave.loaded) runSequence();
+            }
+          });
+        </script>
+
+        <div class="relative mt-16 h-[2px] w-full overflow-hidden">
+          <div class="absolute inset-0 bg-gradient-to-r from-transparent via-primary/10 to-transparent"></div>
+          <div class="absolute inset-0 data-stream opacity-50"></div>
+        </div>
+      </section>
+
+      <!-- REST OF YOUR SITE (unchanged) -->
+      <section class="w-full mb-32 relative">
+        <div class="flex flex-col gap-4 mb-16 items-center text-center">
+          <span class="text-primary/40 text-[10px] font-light uppercase tracking-[0.8em]">Core Clusters</span>
+          <h3 class="text-slate-200 text-4xl font-extralight tracking-tight">Active Nodes</h3>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <!-- marketing card -->
+          <div class="cosmic-node rounded-[2.5rem] p-10 space-y-8 interactive-glow transition-all group relative">
+            <span class="material-symbols-outlined text-primary/30 text-4xl font-extralight">bubble_chart</span>
+            <div class="space-y-4">
+              <h4 class="text-white text-2xl font-extralight tracking-wide">Marketing</h4>
+              <p class="text-slate-500 text-sm leading-relaxed font-extralight">Dynamic gas clouds and luminous
+                engagement paths weaving through digital space.</p>
+            </div>
+            <div class="pt-4">
+              <div class="h-[1px] w-full bg-gradient-to-r from-transparent via-primary/10 to-transparent"></div>
+            </div>
+          </div>
+          <!-- ai card -->
+          <div
+            class="cosmic-node rounded-[2.5rem] p-10 space-y-8 interactive-glow transition-all group md:scale-110 md:translate-y-6 z-30 relative">
+            <span class="material-symbols-outlined text-secondary/30 text-4xl font-extralight">blur_on</span>
+            <div class="space-y-4">
+              <h4 class="text-white text-2xl font-extralight tracking-wide">AI Solutions</h4>
+              <p class="text-slate-500 text-sm leading-relaxed font-extralight">Neural structures defined by organic
+                glass distortion and predictive light bending.</p>
+            </div>
+            <div class="pt-4">
+              <div class="h-[1px] w-full bg-gradient-to-r from-transparent via-secondary/10 to-transparent"></div>
+            </div>
+          </div>
+          <!-- security card -->
+          <div class="cosmic-node rounded-[2.5rem] p-10 space-y-8 interactive-glow transition-all group relative">
+            <span class="material-symbols-outlined text-primary/30 text-4xl font-extralight">shield_with_heart</span>
+            <div class="space-y-4">
+              <h4 class="text-white text-2xl font-extralight tracking-wide">Security</h4>
+              <p class="text-slate-500 text-sm leading-relaxed font-extralight">Ethereal boundaries protected by
+                high-trust refractive encryption layers.</p>
+            </div>
+            <div class="pt-4">
+              <div class="h-[1px] w-full bg-gradient-to-r from-transparent via-primary/10 to-transparent"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="w-full mb-20">
+        <div class="cosmic-node rounded-[3rem] p-8 md:p-16 overlap-node-up">
+          <div class="grid lg:grid-cols-2 gap-20 items-center">
+            <div class="space-y-10">
+              <div class="space-y-4">
+                <h2 class="text-slate-100 text-4xl font-extralight leading-tight tracking-tight">Accelerated Growth
+                  Engine</h2>
+                <p class="text-slate-500 text-lg font-extralight leading-relaxed">Our infrastructure combines strategic
+                  marketing and intelligent architecture to scale your digital presence exponentially.</p>
+              </div>
+              <div class="grid grid-cols-1 gap-4">
+                <div
+                  class="p-6 rounded-3xl bg-white/[0.01] border border-white/5 hover:border-primary/10 transition-colors">
+                  <div class="flex items-center gap-4"><span
+                      class="material-symbols-outlined text-primary/40 text-xl font-light">stream</span>
+                    <h5 class="text-white font-extralight text-sm tracking-[0.2em] uppercase">Data-Driven Marketing</h5>
+                  </div>
+                </div>
+                <div
+                  class="p-6 rounded-3xl bg-white/[0.01] border border-white/5 hover:border-secondary/10 transition-colors">
+                  <div class="flex items-center gap-4"><span
+                      class="material-symbols-outlined text-secondary/40 text-xl font-light">grain</span>
+                    <h5 class="text-white font-extralight text-sm tracking-[0.2em] uppercase">AI-Powered Architecture
+                    </h5>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="relative h-[400px] rounded-[2rem] overflow-hidden group">
+              <div class="absolute inset-0 bg-gradient-to-b from-transparent to-background-dark z-10"></div>
+              <div
+                class="w-full h-full bg-cover bg-center grayscale opacity-40 group-hover:opacity-50 transition-all scale-110 group-hover:scale-100 duration-1000"
+                style="background-image: var(--image-network);">
+              </div>
+              <div class="absolute inset-0 flex items-center justify-center z-20">
+                <div class="cosmic-node p-8 rounded-full border-primary/20"><span
+                    class="material-symbols-outlined text-primary/60 text-5xl font-extralight">hub</span></div>
+              </div>
+              <div class="absolute bottom-8 left-8 z-20 flex items-center gap-4">
+                <div class="flex -space-x-3">
+                  <div class="size-8 rounded-full border border-background-dark bg-slate-800"></div>
+                  <div class="size-8 rounded-full border border-background-dark bg-slate-700"></div>
+                  <div class="size-8 rounded-full border border-background-dark bg-slate-600"></div>
+                </div>
+                <p class="text-[9px] text-slate-400 font-light tracking-[0.4em] uppercase">2,400+ Projects Deployed</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- COMPANIES SHOWCASE SECTION -->
+    <section class="w-full companies-section relative z-10">
+      <div class="max-w-7xl mx-auto px-6 md:px-20">
+        <div class="companies-header">
+          <span class="text-primary/40 text-[10px] font-light uppercase tracking-[0.8em]">Trusted Partners</span>
+          <h3 class="text-slate-200 text-4xl font-extralight tracking-tight mt-2">Companies We've Managed</h3>
+        </div>
+
+        <div class="companies-container">
+          <div class="companies-track">
+            <div class="company-card">
+              <div>
+                <div class="company-logo">🚀</div>
+                <div class="company-name">TechVenture Co</div>
+              </div>
+            </div>
+            <div class="company-card">
+              <div>
+                <div class="company-logo">💡</div>
+                <div class="company-name">InnovateLabs</div>
+              </div>
+            </div>
+            <div class="company-card">
+              <div>
+                <div class="company-logo">🌐</div>
+                <div class="company-name">GlobalDigital</div>
+              </div>
+            </div>
+            <div class="company-card">
+              <div>
+                <div class="company-logo">🔐</div>
+                <div class="company-name">SecureNet Inc</div>
+              </div>
+            </div>
+            <div class="company-card">
+              <div>
+                <div class="company-logo">📊</div>
+                <div class="company-name">DataFlow Systems</div>
+              </div>
+            </div>
+            <div class="company-card">
+              <div>
+                <div class="company-logo">⚡</div>
+                <div class="company-name">Swift Solutions</div>
+              </div>
+            </div>
+            <div class="company-card">
+              <div>
+                <div class="company-logo">🚀</div>
+                <div class="company-name">TechVenture Co</div>
+              </div>
+            </div>
+            <div class="company-card">
+              <div>
+                <div class="company-logo">💡</div>
+                <div class="company-name">InnovateLabs</div>
+              </div>
+            </div>
+            <div class="company-card">
+              <div>
+                <div class="company-logo">🌐</div>
+                <div class="company-name">GlobalDigital</div>
+              </div>
+            </div>
+            <div class="company-card">
+              <div>
+                <div class="company-logo">🔐</div>
+                <div class="company-name">SecureNet Inc</div>
+              </div>
+            </div>
+            <div class="company-card">
+              <div>
+                <div class="company-logo">📊</div>
+                <div class="company-name">DataFlow Systems</div>
+              </div>
+            </div>
+            <div class="company-card">
+              <div>
+                <div class="company-logo">⚡</div>
+                <div class="company-name">Swift Solutions</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- footer -->
+    <footer class="relative z-10 px-6 md:px-20 py-16 mt-auto">
+      <div
+        class="cosmic-node rounded-t-[3rem] border-b-0 p-12 flex flex-col md:flex-row justify-between items-center gap-12">
+        <div class="flex items-center gap-4"><span
+            class="material-symbols-outlined font-extralight text-primary/40">all_inclusive</span><span
+            class="text-slate-500 font-extralight text-[10px] tracking-[0.5em] uppercase">XSCADE NETWORK © 2024</span>
+        </div>
+        <div class="flex gap-12"><a
+            class="text-slate-500 hover:text-primary transition-colors text-[9px] font-extralight tracking-[0.4em] uppercase"
+            href="#">Protocol</a><a
+            class="text-slate-500 hover:text-primary transition-colors text-[9px] font-extralight tracking-[0.4em] uppercase"
+            href="#">Nodes</a><a
+            class="text-slate-500 hover:text-primary transition-colors text-[9px] font-extralight tracking-[0.4em] uppercase"
+            href="#">Transit</a></div>
+        <div class="flex gap-4"><button
+            class="size-10 rounded-full border border-white/5 flex items-center justify-center text-slate-500 hover:text-primary hover:border-primary/20 transition-all"><span
+              class="material-symbols-outlined text-lg font-extralight">language</span></button><button
+            class="size-10 rounded-full border border-white/5 flex items-center justify-center text-slate-500 hover:text-secondary hover:border-secondary/20 transition-all"><span
+              class="material-symbols-outlined text-lg font-extralight">adjust</span></button></div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- THEME TOGGLE SCRIPT -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const toggleBtn = document.getElementById('theme-toggle');
+      const themeIcon = document.getElementById('theme-icon');
+
+      // initialize theme
+      const savedTheme = localStorage.getItem('theme') || 'light';
+      if (savedTheme === 'light') {
+        document.documentElement.classList.remove('dark');
+        if (themeIcon) themeIcon.textContent = 'dark_mode';
+      } else {
+        document.documentElement.classList.add('dark');
+        if (themeIcon) themeIcon.textContent = 'light_mode';
+      }
+
+      if (toggleBtn) {
+        toggleBtn.addEventListener('click', () => {
+          if (document.documentElement.classList.contains('dark')) {
+            document.documentElement.classList.remove('dark');
+            localStorage.setItem('theme', 'light');
+            if (themeIcon) themeIcon.textContent = 'dark_mode';
+          } else {
+            document.documentElement.classList.add('dark');
+            localStorage.setItem('theme', 'dark');
+            if (themeIcon) themeIcon.textContent = 'light_mode';
+          }
+        });
+      }
+    });
+  </script>
+</body>
+
+</html>

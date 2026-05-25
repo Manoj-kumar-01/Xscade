@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html class="" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>XSCADE · Cosmic Services</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "var(--color-primary)",
+                        "secondary": "var(--color-secondary)",
+                        "background-dark": "var(--color-background-dark)",
+                        slate: {
+                            50: "var(--color-slate-50)",
+                            100: "var(--color-slate-100)",
+                            200: "var(--color-slate-200)",
+                            300: "var(--color-slate-300)",
+                            400: "var(--color-slate-400)",
+                            500: "var(--color-slate-500)",
+                            600: "var(--color-slate-600)",
+                            700: "var(--color-slate-700)",
+                            800: "var(--color-slate-800)",
+                            900: "var(--color-slate-900)",
+                        },
+                        white: "var(--color-white)",
+                        black: "var(--color-black)"
+                    },
+                    fontFamily: {
+                        "display": ["Outfit", "sans-serif"]
+                    },
+                },
+            },
+        }
+    </script>
+    <style type="text/tailwindcss">
+
+    :root {
+        --color-primary: #a178a2;
+        --color-secondary: #0284c7;
+        --color-background-dark: #fbfcfd;
+        --color-slate-50: #0f172a;
+        --color-slate-100: #1e293b;
+        --color-slate-200: #334155;
+        --color-slate-300: #475569;
+        --color-slate-400: #64748b;
+        --color-slate-500: #94a3b8;
+        --color-slate-600: #cbd5e1;
+        --color-slate-700: #e2e8f0;
+        --color-slate-800: #e2e8f0;
+        --color-slate-900: #f1f5f9;
+        --color-white: #0f172a;
+        --color-black: #f8fafc;
+
+        --cosmic-lavender: rgba(155, 106, 156, 0.08);
+        --cosmic-sky: rgba(2, 132, 199, 0.08);
+        --bg-grad-color1: rgba(155, 106, 156, 0.05);
+        --bg-grad-color2: rgba(2, 132, 199, 0.05);
+
+        --node-bg: rgba(255, 255, 255, 0.8);
+        --node-border: rgba(0, 0, 0, 0.05);
+        --node-shadow-color: rgba(0, 0, 0, 0.05);
+
+        --hero-lattice-1: rgba(155, 106, 156, 0.05);
+        --hero-lattice-2: rgba(2, 132, 199, 0.05);
+
+        --iphone-bg-border: #e2e8f0;
+        --iphone-inner-bg: #f8fafc;
+        --iphone-island-bg: #fff;
+        --iphone-island-border: rgba(0,0,0,0.1);
+
+        --company-card-bg: rgba(255, 255, 255, 0.8);
+        --company-card-border: rgba(0, 0, 0, 0.08);
+        --company-name-color: #0284c7;
+
+        --welcome-bg: rgba(255, 255, 255, 0.9);
+        --text-color: #0f172a;
+
+        --image-avatar: url('light_avatar_profile_1773821766165.png');
+        --image-network: url('light_tech_network_1773821833848.png');
+        --image-gold-network: url('light_tech_network_1773821833848.png');
+    }
+
+    html.dark:root, .dark {
+        --color-primary: #E0BBE4;
+        --color-secondary: #BAE6FD;
+        --color-background-dark: #050406;
+        --color-slate-50: #f8fafc;
+        --color-slate-100: #f1f5f9;
+        --color-slate-200: #e2e8f0;
+        --color-slate-300: #cbd5e1;
+        --color-slate-400: #94a3b8;
+        --color-slate-500: #64748b;
+        --color-slate-600: #475569;
+        --color-slate-700: #334155;
+        --color-slate-800: #1e293b;
+        --color-slate-900: #0f172a;
+        --color-white: #ffffff;
+        --color-black: #000000;
+
+        --cosmic-lavender: rgba(224, 187, 228, 0.08);
+        --cosmic-sky: rgba(186, 230, 253, 0.08);
+        --bg-grad-color1: rgba(224, 187, 228, 0.05);
+        --bg-grad-color2: rgba(186, 230, 253, 0.05);
+
+        --node-bg: rgba(255, 255, 255, 0.015);
+        --node-border: rgba(255, 255, 255, 0.05);
+        --node-shadow-color: rgba(0, 0, 0, 0.3);
+
+        --hero-lattice-1: rgba(224,187,228,0.02);
+        --hero-lattice-2: rgba(186,230,253,0.02);
+
+        --iphone-bg-border: rgba(255,255,255,0.05);
+        --iphone-inner-bg: #050406;
+        --iphone-island-bg: #000;
+        --iphone-island-border: rgba(255,255,255,0.05);
+
+        --company-card-bg: rgba(255, 255, 255, 0.03);
+        --company-card-border: rgba(255, 255, 255, 0.08);
+        --company-name-color: #bae6fd;
+
+        --welcome-bg: rgba(5, 4, 6, 0.8);
+        --text-color: #cbd5e1;
+
+        --image-avatar: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCcA2fiWLJsmJQJPwBIgpxlEfrNmdwkLtKge7R4u5xGKOlVn6bS92BiO8RL3GA_HN2jHjDvWjEKapB6--sg1vUZIc_VuUSycaqMK6l2C9fW47C77yZnttna_sb2JQInFrQNghbkdl6u3anDSJ1em42kBcWNOEmmaA1gNuS2VrYMCq2E9wcNZHTTbHSrpmKdFJsWVAcWksnXCNjdvPQVg33eAd4OHJhQZbu4KMBF3Obf6IXvmft7gmEZ3JWe_rz-qDCIKzFk8jQl4YOY');
+        --image-network: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDlD_XARKRWuVsSumWEyKVehbUlGNtXXzSUzu9BVHuHrWbGb08WLZ25ARgdSuxWS1Ov86aNzoE6HkYJSBsbCyeQ4amWYCoZfSspyLoYV6mircQytZl_fWNtsj7LbysL14gYhs-sclwEWMMd4MSceshGVLs14-hPUymgn1643f06ybzuX6Y0-8tQyvvcaxpGHSqUaZR2BnuC3axmRJLiuHC_XHP2EHt8RKvtV15WszGtAdZJGUlmRZrnwQuyi5aRLME4FZ3cZZU040PA');
+        --image-gold-network: url('file:///C:/Users/manoj/.gemini/antigravity/brain/b1c1872c-b3fe-4a3a-bd30-3b2c7d6604e7/gold_tech_network_1773139175631.png');
+    }
+
+        :root {
+        --cosmic-lavender: rgba(224, 187, 228, 0.08);
+        --cosmic-sky: rgba(186, 230, 253, 0.08);
+    }
+    body {
+        background-color: var(--color-background-dark);
+        background-image: 
+            radial-gradient(circle at 20% 30%, var(--bg-grad-color1) 0%, transparent 50%),
+            radial-gradient(circle at 80% 70%, var(--bg-grad-color2) 0%, transparent 50%);
+    }
+    .cosmic-node {
+        background: var(--node-bg);
+        backdrop-filter: blur(25px) saturate(120%);
+        -webkit-backdrop-filter: blur(25px) saturate(120%);
+        border: 1px solid var(--node-border);
+        box-shadow: 0 8px 32px 0 var(--node-shadow-color);
+        transition: all 0.3s ease;
+    }
+    .cosmic-node:hover {
+        border-color: var(--hover-border);
+        box-shadow: 0 0 40px rgba(224, 187, 228, 0.15);
+        transform: translateY(-2px);
+    }
+    .data-path {
+        position: absolute;
+        background: linear-gradient(to bottom, transparent, var(--data-path-color-1), transparent);
+        width: 1px;
+        z-index: 0;
+    }
+    .data-path-horizontal {
+        position: absolute;
+        background: linear-gradient(to right, transparent, var(--data-path-color-2), transparent);
+        height: 1px;
+        z-index: 0;
+    }
+    .ethereal-glow-diffused {
+        filter: blur(120px);
+        opacity: 0.12;
+        pointer-events: none;
+    }
+    .overlap-node-up {
+        margin-top: -40px;
+        z-index: 20;
+    }
+    .overlap-node-down {
+        margin-bottom: -40px;
+        z-index: 20;
+    }
+    .gradient-text-soft {
+        background: linear-gradient(135deg, #E0BBE4 20%, #BAE6FD 80%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    .interactive-glow:hover {
+        border-color: var(--hover-border);
+        background: var(--company-card-bg);
+        box-shadow: 0 0 30px var(--bg-grad-color1);
+    }
+    .hero-lattice {
+        background-image: 
+            linear-gradient(var(--hero-lattice-1) 1px, transparent 1px),
+            linear-gradient(90deg, var(--hero-lattice-2) 1px, transparent 1px);
+        background-size: 40px 40px;
+    }
+    .service-beam {
+        background: linear-gradient(90deg, transparent, var(--beam-color-1), var(--beam-color-2), transparent);
+    }
+    .float-orb-1 {
+        position: absolute;
+        width: 180px;
+        height: 180px;
+        border-radius: 50%;
+        background: rgba(224, 187, 228, 0.03);
+        filter: blur(50px);
+        animation: float 16s infinite alternate ease-in-out;
+    }
+    .float-orb-2 {
+        position: absolute;
+        width: 220px;
+        height: 220px;
+        border-radius: 50%;
+        background: rgba(186, 230, 253, 0.03);
+        filter: blur(60px);
+        animation: float 20s infinite alternate-reverse ease-in-out;
+    }
+    @keyframes float {
+        0% { transform: translate(0, 0) scale(1); opacity: 0.3; }
+        100% { transform: translate(40px, -30px) scale(1.2); opacity: 0.6; }
+    }
+    .data-stream {
+        position: absolute;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, var(--stream-color-1), var(--stream-color-2), transparent);
+        background-size: 200% 100%;
+        animation: streamFlow 4s infinite linear;
+    }
+    @keyframes streamFlow {
+        0% { background-position: 0% 0; }
+        100% { background-position: 200% 0; }
+    }
+    .glow-extra {
+        box-shadow: 0 0 60px var(--data-path-color-1);
+    }
+    .pulse-dot {
+        animation: pulse-glow 3s infinite;
+    }
+    @keyframes pulse-glow {
+        0%, 100% { opacity: 0.4; box-shadow: 0 0 8px var(--pulse-color-1); }
+        50% { opacity: 1; box-shadow: 0 0 20px var(--pulse-color-2); }
+    }
+</style>
+</head>
+
+<body class="font-display text-slate-300 selection:bg-primary/20 antialiased overflow-x-hidden font-light bg-background-dark">
+    <div class="relative min-h-screen w-full flex flex-col">
+        <!-- fixed background -->
+        <div class="fixed top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
+            <div class="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] bg-primary ethereal-glow-diffused rounded-full">
+            </div>
+            <div
+                class="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] bg-secondary ethereal-glow-diffused rounded-full">
+            </div>
+            <div class="float-orb-1 top-[20%] right-[15%]"></div>
+            <div class="float-orb-2 bottom-[10%] left-[10%]"></div>
+            <div class="data-path left-1/4 h-full"></div>
+            <div class="data-path left-3/4 h-full"></div>
+            <div class="data-path-horizontal top-1/3 w-full"></div>
+            <div class="data-path-horizontal top-2/3 w-full"></div>
+        </div>
+
+        <!-- header -->
+        <header class="relative z-50 px-6 md:px-20 py-8">
+            <div class="flex items-center justify-between">
+                <a href="index.html" class="flex items-center gap-4 group cursor-pointer">
+                    <div class="size-6 text-primary/60 group-hover:text-primary/80 transition-all">
+                        <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M24 45.8096C19.6865 45.8096 15.4698 44.5305 11.8832 42.134C8.29667 39.7376 5.50128 36.3314 3.85056 32.3462C2.19985 28.361 1.76794 23.9758 2.60947 19.7452C3.451 15.5145 5.52816 11.6284 8.57829 8.5783C11.6284 5.52817 15.5145 3.45101 19.7452 2.60948C23.9758 1.76795 28.361 2.19986 32.3462 3.85057C36.3314 5.50129 39.7376 8.29668 42.134 11.8833C44.5305 15.4698 45.8096 19.6865 45.8096 24L24 24L24 45.8096Z"
+                                fill="currentColor"></path>
+                        </svg>
+                    </div>
+                    <h1 class="text-slate-100 text-lg font-extralight tracking-[0.3em]">XSCADE</h1>
+                </a>
+                <nav class="hidden lg:flex items-center gap-12">
+                    <a href="services.html"
+                        class="text-primary transition-colors text-[10px] font-light tracking-[0.4em] uppercase">Services</a>
+                    <a href="aboutus.html"
+                        class="text-slate-500 hover:text-primary transition-colors text-[10px] font-light tracking-[0.4em] uppercase">About
+                        Us</a>
+                    <a href="contact.html"
+                        class="text-slate-500 hover:text-primary transition-colors text-[10px] font-light tracking-[0.4em] uppercase">Contact</a>
+                    <a href="blogs.html"
+                        class="text-slate-500 hover:text-primary transition-colors text-[10px] font-light tracking-[0.4em] uppercase">Blogs</a>
+                </nav>
+                <div class="flex items-center gap-6">
+                    
+                    <button id="theme-toggle" class="text-slate-300 hover:text-white transition-all mr-2 flex items-center justify-center size-8 rounded-full border border-white/10 hover:bg-slate-800">
+                        <span id="theme-icon" class="material-symbols-outlined text-lg">dark_mode</span>
+                    </button>
+                    <button
+                        class="text-slate-300 text-[10px] font-light tracking-[0.4em] uppercase hover:text-white transition-all">Interface</button>
+                    <div class="size-8 rounded-full border border-white/10 p-0.5">
+                        <div class="w-full h-full rounded-full bg-cover bg-center grayscale opacity-60"
+                            style="background-image: var(--image-avatar);">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- main content -->
+        <main class="relative z-10 flex-1 flex flex-col items-center px-6 md:px-20 py-20 max-w-7xl mx-auto w-full">
+
+            <!-- services header -->
+            <div class="w-full mb-16 text-center">
+                <span
+                    class="inline-block text-primary/40 text-[10px] font-light uppercase tracking-[0.8em] border-l border-primary/20 pl-3 mb-4">·our
+                    universe·</span>
+                <h2 class="text-slate-50 text-5xl md:text-7xl font-extralight leading-[1.1] tracking-tighter">
+                    <span class="gradient-text-soft block">cosmic services</span>
+                </h2>
+                <div class="relative mt-6 h-[2px] w-48 mx-auto overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-r from-transparent via-primary/10 to-transparent"></div>
+                    <div class="absolute inset-0 data-stream opacity-50"></div>
+                </div>
+            </div>
+
+            <!-- service cards grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full mb-32">
+                <!-- marketing card -->
+                <div class="cosmic-node rounded-[2.5rem] p-10 space-y-8 interactive-glow transition-all group relative">
+                    <div
+                        class="absolute -top-3 -right-3 size-6 rounded-full border border-primary/20 bg-background-dark flex items-center justify-center group-hover:border-primary/40 transition-all">
+                        <div class="size-1.5 rounded-full bg-primary/60 group-hover:bg-primary transition-all"></div>
+                    </div>
+                    <span
+                        class="material-symbols-outlined text-primary/30 text-4xl font-extralight group-hover:text-primary/50 transition-all">bubble_chart</span>
+                    <div class="space-y-4">
+                        <h4 class="text-white text-2xl font-extralight tracking-wide">Nexus Marketing</h4>
+                        <p class="text-slate-500 text-sm leading-relaxed font-extralight">Amplifying your digital signal
+                            across a thousand star systems through precision-targeted narrative gravity.</p>
+                    </div>
+                    <div class="pt-4">
+                        <div class="h-[1px] w-full bg-gradient-to-r from-transparent via-primary/10 to-transparent">
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2 text-primary/40 group-hover:text-primary/60 transition-all">
+                        <span class="text-[9px] tracking-[0.4em] uppercase">explore outreach</span>
+                        <span class="material-symbols-outlined text-base">arrow_forward</span>
+                    </div>
+                </div>
+
+                <!-- ai card (elevated) -->
+                <div
+                    class="cosmic-node rounded-[2.5rem] p-10 space-y-8 interactive-glow transition-all group md:scale-110 md:translate-y-6 z-30 relative">
+                    <div
+                        class="absolute -top-3 -right-3 size-6 rounded-full border border-secondary/20 bg-background-dark flex items-center justify-center group-hover:border-secondary/40 transition-all">
+                        <div class="size-1.5 rounded-full bg-secondary/60 group-hover:bg-secondary transition-all">
+                        </div>
+                    </div>
+                    <span
+                        class="material-symbols-outlined text-secondary/30 text-4xl font-extralight group-hover:text-secondary/50 transition-all">blur_on</span>
+                    <div class="space-y-4">
+                        <h4 class="text-white text-2xl font-extralight tracking-wide">AI Automation</h4>
+                        <p class="text-slate-500 text-sm leading-relaxed font-extralight">Orchestrating autonomous logic
+                            streams that transcend human bandwidth and redefine the speed of light.</p>
+                    </div>
+                    <div class="pt-4">
+                        <div class="h-[1px] w-full bg-gradient-to-r from-transparent via-secondary/10 to-transparent">
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2 text-secondary/40 group-hover:text-secondary/60 transition-all">
+                        <span class="text-[9px] tracking-[0.4em] uppercase">explore singularity</span>
+                        <span class="material-symbols-outlined text-base">arrow_forward</span>
+                    </div>
+                </div>
+
+                <!-- web dev card -->
+                <div class="cosmic-node rounded-[2.5rem] p-10 space-y-8 interactive-glow transition-all group relative">
+                    <div
+                        class="absolute -top-3 -right-3 size-6 rounded-full border border-primary/20 bg-background-dark flex items-center justify-center group-hover:border-primary/40 transition-all">
+                        <div class="size-1.5 rounded-full bg-primary/60 group-hover:bg-primary transition-all"></div>
+                    </div>
+                    <span
+                        class="material-symbols-outlined text-primary/30 text-4xl font-extralight group-hover:text-primary/50 transition-all">code_off</span>
+                    <div class="space-y-4">
+                        <h4 class="text-white text-2xl font-extralight tracking-wide">Web Synthesis</h4>
+                        <p class="text-slate-500 text-sm leading-relaxed font-extralight">Forging digital constellations
+                            through pixel-perfect gravity wells and seamless architectural event horizons.</p>
+                    </div>
+                    <div class="pt-4">
+                        <div class="h-[1px] w-full bg-gradient-to-r from-transparent via-primary/10 to-transparent">
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2 text-primary/40 group-hover:text-primary/60 transition-all">
+                        <span class="text-[9px] tracking-[0.4em] uppercase">explore structure</span>
+                        <span class="material-symbols-outlined text-base">arrow_forward</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- deep space capabilities (expanded specialized nodes) -->
+            <div class="w-full mb-32">
+                <div class="flex flex-col gap-4 mb-16 items-center text-center">
+                    <span class="text-primary/40 text-[10px] font-light uppercase tracking-[0.8em]">Sub-Quantum
+                        Layers</span>
+                    <h3 class="text-slate-200 text-4xl md:text-5xl font-extralight tracking-tight">Refractive
+                        Capabilities</h3>
+                    <p class="text-slate-500 max-w-2xl mx-auto font-extralight text-lg mt-4">Precision-engineered
+                        protocols designed to resonate across the digital multiverse.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- Social Media Stratagem -->
+                    <div
+                        class="cosmic-node p-8 rounded-[2rem] border-white/5 hover:border-primary/30 transition-all group relative overflow-hidden">
+                        <div
+                            class="absolute -right-4 -top-4 size-24 bg-primary/5 blur-2xl group-hover:bg-primary/10 transition-all">
+                        </div>
+                        <span
+                            class="material-symbols-outlined text-4xl text-primary/30 group-hover:text-primary transition-all mb-6">campaign</span>
+                        <h5 class="text-white font-light text-lg mb-3 tracking-wide">Social Media Stratagem</h5>
+                        <p class="text-slate-500 text-sm font-extralight leading-relaxed mb-6">Crafting high-impact
+                            narratives and viral resonance to dominate the digital social architecture.</p>
+                        <ul class="space-y-2">
+                            <li class="flex items-center gap-2 text-[10px] uppercase tracking-widest text-slate-400">
+                                <span class="size-1 rounded-full bg-primary/40"></span> Brand Amplification
+                            </li>
+                            <li class="flex items-center gap-2 text-[10px] uppercase tracking-widest text-slate-400">
+                                <span class="size-1 rounded-full bg-primary/40"></span> Community Pulse
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- AI Agent Integration -->
+                    <div
+                        class="cosmic-node p-8 rounded-[2rem] border-white/5 hover:border-secondary/30 transition-all group relative overflow-hidden">
+                        <div
+                            class="absolute -right-4 -top-4 size-24 bg-secondary/5 blur-2xl group-hover:bg-secondary/10 transition-all">
+                        </div>
+                        <span
+                            class="material-symbols-outlined text-4xl text-secondary/30 group-hover:text-secondary transition-all mb-6">smart_toy</span>
+                        <h5 class="text-white font-light text-lg mb-3 tracking-wide">AI Agent Integration</h5>
+                        <p class="text-slate-500 text-sm font-extralight leading-relaxed mb-6">Deploying autonomous
+                            intelligence layers to streamline workflows and unlock exponential efficiency.</p>
+                        <ul class="space-y-2">
+                            <li class="flex items-center gap-2 text-[10px] uppercase tracking-widest text-slate-400">
+                                <span class="size-1 rounded-full bg-secondary/40"></span> Autonomous Workflows
+                            </li>
+                            <li class="flex items-center gap-2 text-[10px] uppercase tracking-widest text-slate-400">
+                                <span class="size-1 rounded-full bg-secondary/40"></span> Cognitive Synergy
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Full-Stack Architecture -->
+                    <div
+                        class="cosmic-node p-8 rounded-[2rem] border-white/5 hover:border-primary/30 transition-all group relative overflow-hidden">
+                        <div
+                            class="absolute -right-4 -top-4 size-24 bg-primary/5 blur-2xl group-hover:bg-primary/10 transition-all">
+                        </div>
+                        <span
+                            class="material-symbols-outlined text-4xl text-primary/30 group-hover:text-primary transition-all mb-6">layers</span>
+                        <h5 class="text-white font-light text-lg mb-3 tracking-wide">Full-Stack Architecture</h5>
+                        <p class="text-slate-500 text-sm font-extralight leading-relaxed mb-6">Building resilient,
+                            scale-ready digital foundations with pixel-perfect precision and logic.</p>
+                        <ul class="space-y-2">
+                            <li class="flex items-center gap-2 text-[10px] uppercase tracking-widest text-slate-400">
+                                <span class="size-1 rounded-full bg-primary/40"></span> Scalable Systems
+                            </li>
+                            <li class="flex items-center gap-2 text-[10px] uppercase tracking-widest text-slate-400">
+                                <span class="size-1 rounded-full bg-primary/40"></span> Modern Tech Stack
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Performance Analytics -->
+                    <div
+                        class="cosmic-node p-8 rounded-[2rem] border-white/5 hover:border-secondary/30 transition-all group relative overflow-hidden">
+                        <div
+                            class="absolute -right-4 -top-4 size-24 bg-secondary/5 blur-2xl group-hover:bg-secondary/10 transition-all">
+                        </div>
+                        <span
+                            class="material-symbols-outlined text-4xl text-secondary/30 group-hover:text-secondary transition-all mb-6">insights</span>
+                        <h5 class="text-white font-light text-lg mb-3 tracking-wide">Performance Analytics</h5>
+                        <p class="text-slate-500 text-sm font-extralight leading-relaxed mb-6">Decoding complex data
+                            patterns into actionable growth signals for hyper-scaling success.</p>
+                        <ul class="space-y-2">
+                            <li class="flex items-center gap-2 text-[10px] uppercase tracking-widest text-slate-400">
+                                <span class="size-1 rounded-full bg-secondary/40"></span> Conversion Logic
+                            </li>
+                            <li class="flex items-center gap-2 text-[10px] uppercase tracking-widest text-slate-400">
+                                <span class="size-1 rounded-full bg-secondary/40"></span> Growth Algorithms
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- The Orchestration Flow (Process) -->
+            <div class="w-full mb-32">
+                <div class="flex flex-col gap-4 mb-20 items-center text-center">
+                    <span class="text-primary/40 text-[10px] font-light uppercase tracking-[0.8em]">Mission
+                        Sequence</span>
+                    <h3 class="text-slate-200 text-4xl font-extralight tracking-tight">The Orchestration Flow</h3>
+                </div>
+
+                <div class="relative grid grid-cols-1 md:grid-cols-4 gap-12">
+                    <!-- process progress line -->
+                    <div
+                        class="hidden md:block absolute top-12 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-primary/20 to-transparent z-0">
+                    </div>
+
+                    <div class="relative z-10 text-center space-y-6 group">
+                        <div
+                            class="size-24 rounded-full cosmic-node mx-auto flex items-center justify-center border-primary/20 group-hover:border-primary transition-all duration-500">
+                            <span class="text-white font-extralight text-3xl">01</span>
+                            <div class="absolute inset-0 rounded-full border border-primary/10 animate-ping opacity-20">
+                            </div>
+                        </div>
+                        <div class="space-y-2">
+                            <h6 class="text-white text-sm tracking-[0.3em] uppercase">Strategic Audit</h6>
+                            <p class="text-slate-500 text-xs font-extralight">Mapping your digital constellation and
+                                identifying high-growth nodes.</p>
+                        </div>
+                    </div>
+
+                    <div class="relative z-10 text-center space-y-6 group">
+                        <div
+                            class="size-24 rounded-full cosmic-node mx-auto flex items-center justify-center border-secondary/20 group-hover:border-secondary transition-all duration-500">
+                            <span class="text-white font-extralight text-3xl">02</span>
+                        </div>
+                        <div class="space-y-2">
+                            <h6 class="text-white text-sm tracking-[0.3em] uppercase">Design & Prototyping</h6>
+                            <p class="text-slate-500 text-xs font-extralight">Injecting core functionality and
+                                architectural roadmaps into your brand essence.</p>
+                        </div>
+                    </div>
+
+                    <div class="relative z-10 text-center space-y-6 group">
+                        <div
+                            class="size-24 rounded-full cosmic-node mx-auto flex items-center justify-center border-primary/20 group-hover:border-primary transition-all duration-500">
+                            <span class="text-white font-extralight text-3xl">03</span>
+                        </div>
+                        <div class="space-y-2">
+                            <h6 class="text-white text-sm tracking-[0.3em] uppercase">Development & Iteration</h6>
+                            <p class="text-slate-500 text-xs font-extralight">Building and optimizing signals across all
+                                touchpoints with modern agility.</p>
+                        </div>
+                    </div>
+
+                    <div class="relative z-10 text-center space-y-6 group">
+                        <div
+                            class="size-24 rounded-full cosmic-node mx-auto flex items-center justify-center border-secondary/20 group-hover:border-secondary transition-all duration-500">
+                            <span class="text-white font-extralight text-3xl">04</span>
+                        </div>
+                        <div class="space-y-2">
+                            <h6 class="text-white text-sm tracking-[0.3em] uppercase">Launch & Scaling</h6>
+                            <p class="text-slate-500 text-xs font-extralight">Full-spectrum deployment and continuous
+                                monitoring for sustained hyper-growth.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Growth Metrics (KPIs) -->
+            <div class="w-full mb-32 cosmic-node rounded-[3rem] p-12 md:p-20 relative overflow-hidden">
+                <div
+                    class="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5 opacity-50">
+                </div>
+                <div class="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-16">
+                    <div class="text-center space-y-4">
+                        <span class="text-primary/60 text-5xl md:text-6xl font-extralight tracking-tighter"><span
+                                class="metric-counter" data-target="99.9">0</span><span
+                                class="text-2xl text-primary/30">%</span></span>
+                        <div class="h-[1px] w-12 mx-auto bg-primary/20"></div>
+                        <h6 class="text-slate-300 text-[10px] tracking-[0.4em] uppercase">Service Uptime</h6>
+                    </div>
+                    <div class="text-center space-y-4">
+                        <span class="text-secondary/60 text-5xl md:text-6xl font-extralight tracking-tighter"><span
+                                class="metric-counter" data-target="2.4">0</span><span
+                                class="text-2xl text-secondary/30">M</span></span>
+                        <div class="h-[1px] w-12 mx-auto bg-secondary/20"></div>
+                        <h6 class="text-slate-300 text-[10px] tracking-[0.4em] uppercase">Data Points Analyzed</h6>
+                    </div>
+                    <div class="text-center space-y-4">
+                        <span class="text-primary/60 text-5xl md:text-6xl font-extralight tracking-tighter"><span
+                                class="metric-counter" data-target="40">0</span><span
+                                class="text-2xl text-primary/30">+</span></span>
+                        <div class="h-[1px] w-12 mx-auto bg-primary/20"></div>
+                        <h6 class="text-slate-300 text-[10px] tracking-[0.4em] uppercase">Active Clients</h6>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Technological Foundation -->
+            <div class="w-full mb-32">
+                <div class="flex flex-col gap-4 mb-16 items-center text-center">
+                    <span class="text-secondary/40 text-[10px] font-light uppercase tracking-[0.8em]">Core
+                        Elements</span>
+                    <h3 class="text-slate-200 text-4xl font-extralight tracking-tight">Technological Foundation</h3>
+                </div>
+
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
+                    <div
+                        class="p-8 rounded-3xl bg-white/[0.01] border border-white/5 flex flex-col items-center gap-4 hover:bg-white/[0.02] transition-all">
+                        <div class="size-12 rounded-2xl bg-primary/5 flex items-center justify-center">
+                            <span class="material-symbols-outlined text-primary/40">Ads_Click</span>
+                        </div>
+                        <span class="text-white text-[10px] tracking-[0.3em] uppercase font-light text-center">Ad-Tech
+                            Platforms</span>
+                    </div>
+                    <div
+                        class="p-8 rounded-3xl bg-white/[0.01] border border-white/5 flex flex-col items-center gap-4 hover:bg-white/[0.02] transition-all">
+                        <div class="size-12 rounded-2xl bg-secondary/5 flex items-center justify-center">
+                            <span class="material-symbols-outlined text-secondary/40">terminal</span>
+                        </div>
+                        <span
+                            class="text-white text-[10px] tracking-[0.3em] uppercase font-light text-center">Full-Stack
+                            Frameworks</span>
+                    </div>
+                    <div
+                        class="p-8 rounded-3xl bg-white/[0.01] border border-white/5 flex flex-col items-center gap-4 hover:bg-white/[0.02] transition-all">
+                        <div class="size-12 rounded-2xl bg-primary/5 flex items-center justify-center">
+                            <span class="material-symbols-outlined text-primary/40">memory</span>
+                        </div>
+                        <span class="text-white text-[10px] tracking-[0.3em] uppercase font-light text-center">LLMs & AI
+                            Logic</span>
+                    </div>
+                    <div
+                        class="p-8 rounded-3xl bg-white/[0.01] border border-white/5 flex flex-col items-center gap-4 hover:bg-white/[0.02] transition-all">
+                        <div class="size-12 rounded-2xl bg-secondary/5 flex items-center justify-center">
+                            <span class="material-symbols-outlined text-secondary/40">cloud</span>
+                        </div>
+                        <span class="text-white text-[10px] tracking-[0.3em] uppercase font-light text-center">Cloud
+                            Infrastructure</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Final CTA -->
+            <div class="w-full mb-20 text-center py-20 relative">
+                <div class="absolute inset-0 flex items-center justify-center -z-10">
+                    <div class="size-[400px] bg-primary/10 blur-[120px] rounded-full animate-pulse"></div>
+                </div>
+                <div class="space-y-8 max-w-2xl mx-auto">
+                    <span class="text-primary/40 text-[10px] font-light uppercase tracking-[0.8em]">Final
+                        Transmission</span>
+                    <h2 class="text-slate-50 text-4xl md:text-6xl font-extralight leading-tight">Ready to expand your
+                        <span class="gradient-text-soft">digital horizon?</span>
+                    </h2>
+                    <p class="text-slate-500 font-extralight text-lg">Connect with our core nodes and start your cosmic
+                        journey through the digital multiverse today.</p>
+                    <div class="pt-8">
+                        <a href="contact.html"
+                            class="inline-flex items-center gap-4 px-12 py-5 rounded-full border border-primary/30 bg-primary/5 text-white text-[10px] tracking-[0.5em] uppercase hover:bg-primary/20 transition-all group">
+                            <span>Initiate Transmission</span>
+                            <span
+                                class="material-symbols-outlined text-sm text-primary/60 group-hover:translate-x-1 transition-transform">rocket_launch</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Future Nodes Expansion (Ready to Expand) -->
+            <div class="w-full mb-32 relative">
+                <div class="flex flex-col gap-4 mb-16 items-center text-center opacity-50">
+                    <span class="text-slate-500 text-[10px] font-light uppercase tracking-[0.8em]">Incoming
+                        Signals</span>
+                    <h3 class="text-slate-400 text-2xl font-extralight tracking-tight italic">Upcoming Service Modules
+                    </h3>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div
+                        class="cosmic-node rounded-[2rem] p-8 border-dashed border-white/10 flex flex-col items-center justify-center text-center space-y-4 group cursor-wait">
+                        <span
+                            class="material-symbols-outlined text-slate-700 text-4xl group-hover:text-primary/30 transition-all">blur_circular</span>
+                        <h5 class="text-slate-600 font-extralight tracking-widest uppercase text-xs">Predictive AI
+                            Engine</h5>
+                        <p class="text-slate-700 text-[10px] uppercase tracking-wider">Node initialization 12% complete
+                        </p>
+                    </div>
+                    <div
+                        class="cosmic-node rounded-[2rem] p-8 border-dashed border-white/10 flex flex-col items-center justify-center text-center space-y-4 group cursor-wait">
+                        <span
+                            class="material-symbols-outlined text-slate-700 text-4xl group-hover:text-secondary/30 transition-all">track_changes</span>
+                        <h5 class="text-slate-600 font-extralight tracking-widest uppercase text-xs">Omni-Channel
+                            Targeting</h5>
+                        <p class="text-slate-700 text-[10px] uppercase tracking-wider">Awaiting carrier signal</p>
+                    </div>
+                    <div
+                        class="cosmic-node rounded-[2rem] p-8 border-dashed border-white/10 flex flex-col items-center justify-center text-center space-y-4 group cursor-wait">
+                        <span
+                            class="material-symbols-outlined text-slate-700 text-4xl group-hover:text-primary/30 transition-all">settings_input_antenna</span>
+                        <h5 class="text-slate-600 font-extralight tracking-widest uppercase text-xs">Web 3.0
+                            Architecture</h5>
+                        <p class="text-slate-700 text-[10px] uppercase tracking-wider">Calibration in progress</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- footer -->
+        <footer class="relative z-10 px-6 md:px-20 py-16 mt-auto">
+            <div
+                class="cosmic-node rounded-t-[3rem] border-b-0 p-12 flex flex-col md:flex-row justify-between items-center gap-12">
+                <div class="flex items-center gap-4">
+                    <span class="material-symbols-outlined font-extralight text-primary/40">all_inclusive</span>
+                    <span class="text-slate-500 font-extralight text-[10px] tracking-[0.5em] uppercase">XSCADE NETWORK ©
+                        2024</span>
+                </div>
+                <div class="flex gap-12">
+                    <a href="#"
+                        class="text-slate-500 hover:text-primary transition-colors text-[9px] font-extralight tracking-[0.4em] uppercase">Protocol</a>
+                    <a href="#"
+                        class="text-slate-500 hover:text-primary transition-colors text-[9px] font-extralight tracking-[0.4em] uppercase">Nodes</a>
+                    <a href="#"
+                        class="text-slate-500 hover:text-primary transition-colors text-[9px] font-extralight tracking-[0.4em] uppercase">Transit</a>
+                </div>
+                <div class="flex gap-4">
+                    <button
+                        class="size-10 rounded-full border border-white/5 flex items-center justify-center text-slate-500 hover:text-primary hover:border-primary/20 transition-all">
+                        <span class="material-symbols-outlined text-lg font-extralight">language</span>
+                    </button>
+                    <button
+                        class="size-10 rounded-full border border-white/5 flex items-center justify-center text-slate-500 hover:text-secondary hover:border-secondary/20 transition-all">
+                        <span class="material-symbols-outlined text-lg font-extralight">adjust</span>
+                    </button>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const counters = document.querySelectorAll('.metric-counter');
+
+            const animateCounters = (entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const counter = entry.target;
+                        const target = parseFloat(counter.getAttribute('data-target'));
+                        const isFloat = target % 1 !== 0; // Check if target has decimals
+                        const duration = 2000; // Total animation time (2s)
+                        const start = performance.now();
+
+                        const step = (timestamp) => {
+                            const progress = Math.min((timestamp - start) / duration, 1);
+                            // Ease out exponential
+                            const easeProgress = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+                            const currentVal = target * easeProgress;
+
+                            counter.innerText = isFloat ? currentVal.toFixed(1) : Math.floor(currentVal);
+
+                            if (progress < 1) {
+                                requestAnimationFrame(step);
+                            } else {
+                                counter.innerText = target;
+                            }
+                        };
+
+                        requestAnimationFrame(step);
+                        observer.unobserve(counter);
+                    }
+                });
+            };
+
+            const observer = new IntersectionObserver(animateCounters, {
+                threshold: 0.5
+            });
+
+            counters.forEach(counter => {
+                observer.observe(counter);
+            });
+        });
+    </script>
+
+    <!-- THEME TOGGLE SCRIPT -->
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const toggleBtn = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        
+        // initialize theme
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        if (savedTheme === 'light') {
+            document.documentElement.classList.remove('dark');
+            if (themeIcon) themeIcon.textContent = 'dark_mode';
+        } else {
+            document.documentElement.classList.add('dark');
+            if (themeIcon) themeIcon.textContent = 'light_mode';
+        }
+
+        if (toggleBtn) {
+            toggleBtn.addEventListener('click', () => {
+                if (document.documentElement.classList.contains('dark')) {
+                    document.documentElement.classList.remove('dark');
+                    localStorage.setItem('theme', 'light');
+                    if (themeIcon) themeIcon.textContent = 'dark_mode';
+                } else {
+                    document.documentElement.classList.add('dark');
+                    localStorage.setItem('theme', 'dark');
+                    if (themeIcon) themeIcon.textContent = 'light_mode';
+                }
+            });
+        }
+      });
+    </script>
+</body>
+
+</html>
