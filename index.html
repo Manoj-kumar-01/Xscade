@@ -560,34 +560,15 @@
             <div
               class="relative w-full max-w-[550px] h-[500px] flex justify-center items-center hero-model-container overflow-visible">
 
-              <!-- 1. SEQUENTIAL MODELS -->
-              <model-viewer id="hero-model-wave" src="Waving.glb" alt="Waving character" camera-orbit="0deg 75deg 105%"
-                loading="eager" reveal="auto" shadow-intensity="1" environment-image="neutral" exposure="1.2"
-                shadow-softness="0.5"
-                class="absolute inset-0 w-full h-full object-contain z-20 transition-opacity duration-1000 opacity-0">
-              </model-viewer>
-
-              <model-viewer id="hero-model-pull" src="Pulling A Rope.glb" alt="Pulling character"
-                camera-orbit="0deg 75deg 105%" loading="eager" reveal="auto" shadow-intensity="1"
-                environment-image="neutral" exposure="1.2" shadow-softness="0.5"
-                class="absolute inset-0 w-full h-full object-contain z-10 transition-opacity duration-1000 opacity-0">
-              </model-viewer>
-
-              <!-- 2. INTERNAL IPHONE INTERACTIVE FRAME (Hidden initially) -->
+              <!-- INTERNAL IPHONE INTERACTIVE FRAME -->
               <div id="iphone-view" class="iphone-frame" style="display: none;">
                 <div class="iphone-dynamic-island"></div>
                 <div class="iphone-reflection"></div>
                 <div class="iphone-inner">
-                  <model-viewer id="interactive-model" src="Waving.glb" alt="Interactive 3D model" camera-controls
+                  <model-viewer id="interactive-model" src="Idle.glb" alt="Interactive 3D model" camera-controls
                     interaction-prompt="auto" shadow-intensity="1" environment-image="neutral" exposure="1.2"
                     camera-orbit="0deg 75deg 70%" class="w-full h-full">
                   </model-viewer>
-
-                  <!-- Model Switcher Dots -->
-                  <div class="iphone-controls">
-                    <div class="control-dot active" data-model="Waving.glb"></div>
-                    <div class="control-dot" data-model="Idle.glb"></div>
-                  </div>
                 </div>
               </div>
 
@@ -597,157 +578,38 @@
 
         <script>
           document.addEventListener('DOMContentLoaded', () => {
-            const modelWave = document.getElementById('hero-model-wave');
-            const modelPull = document.getElementById('hero-model-pull');
             const iphoneView = document.getElementById('iphone-view');
             const digitalText = document.getElementById('digital-presence-text');
             const interactiveModel = document.getElementById('interactive-model');
-            const controlDots = document.querySelectorAll('.control-dot');
 
-            let sequenceStarted = false;
-
-            // Session Persistence
-            const hasPlayed = sessionStorage.getItem('hero_animation_played');
-
-            if (hasPlayed) {
-              console.log('⏭️ Skipping intro (session persistent)');
-              if (modelWave) modelWave.style.display = 'none';
-              if (modelPull) modelPull.style.display = 'none';
-              if (iphoneView) {
-                iphoneView.style.display = 'block';
-                setTimeout(() => iphoneView.classList.add('active'), 50);
-              }
-              if (digitalText) {
-                digitalText.style.transition = 'none';
-                digitalText.style.transform = 'translateX(0)';
-              }
+            // 1. Instantly display iPhone View and animate text
+            if (iphoneView) {
+              iphoneView.style.display = 'block';
+              setTimeout(() => {
+                iphoneView.classList.add('active');
+              }, 50);
             }
 
-            const playOnce = (viewer, keywords, customDuration = null) => {
-              return new Promise((resolve) => {
-                const checkReady = () => {
-                  if (viewer.availableAnimations && viewer.availableAnimations.length > 0) {
-                    const animations = viewer.availableAnimations;
-                    let anim = animations.find(name => keywords.some(kw => name.toLowerCase().includes(kw)));
-                    if (!anim) anim = animations[0];
-
-                    viewer.animationName = anim;
-                    viewer.play();
-
-                    setTimeout(() => {
-                      viewer.classList.replace('opacity-0', 'opacity-100');
-                    }, 100);
-
-                    const checkDuration = () => {
-                      const duration = customDuration || viewer.duration;
-                      if (duration > 0) {
-                        setTimeout(() => {
-                          viewer.pause();
-                          resolve();
-                        }, duration * 1000 - 50);
-                      } else {
-                        setTimeout(checkDuration, 100);
-                      }
-                    };
-                    checkDuration();
-                  } else {
-                    setTimeout(checkReady, 100);
-                  }
-                };
-                checkReady();
-              });
-            };
-
-            const runSequence = async () => {
-              if (hasPlayed || sequenceStarted) return;
-              sequenceStarted = true;
-
-              console.log('🏁 Starting sequence...');
-
-              // 1. Play Wave
-              await playOnce(modelWave, ['wave', 'greet'], 4.2);
-
-              // 2. Cross-fade to Pull
-              if (modelPull.availableAnimations && modelPull.availableAnimations.length > 0) {
-                modelPull.animationName = modelPull.availableAnimations[0];
-                modelPull.play();
-              }
-
-              modelWave.classList.replace('opacity-100', 'opacity-0');
-              modelPull.classList.replace('opacity-0', 'opacity-100');
-              modelWave.classList.replace('z-20', 'z-10');
-              modelPull.classList.replace('z-10', 'z-20');
-
-              // Staggered Pull Reveal
+            if (digitalText) {
               setTimeout(() => {
-                if (digitalText) digitalText.style.transform = 'translateX(-50%)';
-                setTimeout(() => {
-                  if (digitalText) digitalText.style.transform = 'translateX(0)';
-                }, 2750);
-              }, 2000);
+                digitalText.style.transform = 'translateX(0)';
+              }, 200);
+            }
 
-              // 3. Play Pulling (Wait for duration)
-              const pullDuration = await new Promise(res => {
-                const check = () => {
-                  if (modelPull.duration > 0) res(modelPull.duration);
-                  else setTimeout(check, 100);
-                };
-                check();
-              });
+            // 2. Handle interactive model loading & default standing straight pose
+            if (interactiveModel) {
+              interactiveModel.addEventListener('load', () => {
+                const animations = interactiveModel.availableAnimations;
+                if (animations && animations.length > 0) {
+                  const anim = animations.find(name =>
+                    ['idle', 'stand', 'wave', 'greet'].some(kw => name.toLowerCase().includes(kw))
+                  ) || animations[0];
 
-              // End sequence and fade in iPhone
-              setTimeout(() => {
-                console.log('✨ Sequence complete. Activating iPhone View...');
-
-                // Hide sequential models
-                modelWave.style.opacity = '0';
-                modelPull.style.opacity = '0';
-
-                setTimeout(() => {
-                  modelWave.style.display = 'none';
-                  modelPull.style.display = 'none';
-
-                  // Activate iPhone View
-                  if (iphoneView) {
-                    iphoneView.style.display = 'block';
-                    setTimeout(() => iphoneView.classList.add('active'), 50);
-                  }
-                  sessionStorage.setItem('hero_animation_played', 'true');
-                }, 1000);
-              }, (pullDuration - 1) * 1000);
-            };
-
-            // Ensure interactive model starts animation immediately on load (avoids T-pose)
-            interactiveModel.addEventListener('load', () => {
-              const animations = interactiveModel.availableAnimations;
-              if (animations && animations.length > 0) {
-                // Find an idle or waving animation for the "standing straight" look
-                let anim = animations.find(name =>
-                  ['idle', 'stand', 'wave', 'greet'].some(kw => name.toLowerCase().includes(kw))
-                ) || animations[0];
-
-                interactiveModel.animationName = anim;
-                // interactiveModel.play(); // Removed animate to keep it static "standing straight"
-                interactiveModel.currentTime = 0;
-                console.log('📱 Interactive model set to static pose:', anim);
-              }
-            });
-
-            // Model Switcher Dots
-            controlDots.forEach(dot => {
-              dot.addEventListener('click', () => {
-                const modelSrc = dot.getAttribute('data-model');
-                if (interactiveModel.src !== modelSrc) {
-                  interactiveModel.setAttribute('src', modelSrc);
-                  controlDots.forEach(d => d.classList.remove('active'));
-                  dot.classList.add('active');
+                  interactiveModel.animationName = anim;
+                  interactiveModel.currentTime = 0;
+                  console.log('📱 Interactive model set to pose:', anim);
                 }
               });
-            });
-
-            if (modelWave && !hasPlayed) {
-              modelWave.addEventListener('load', runSequence);
-              if (modelWave.loaded) runSequence();
             }
           });
         </script>
